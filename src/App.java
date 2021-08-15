@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.ToIntFunction;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -17,7 +19,7 @@ public class App {
         z valeur 
         
 
-        partie 2 erronee et sans retour de chariot
+        partie2.txt erronee et sans retour de chariot
 
 
         1. charger  un fichier (online ou sur disque ou stdin) ** gerer les erreurs de lecture
@@ -27,45 +29,34 @@ public class App {
         tester avec plusieurs grilles inclure des grilles asymetrique
         Donner le resultat de 2 tests differents (screenshot ok pour le resultats de ces tests)
 
-        expliquer tout (fn var et qualifiants)
+        expliquer tout (fn, var et qualifiants)
 
         */
         
-        File FichierALire = new File("partie1.txt");
-        try (
-            FileReader unFichier = new FileReader(FichierALire);
-            BufferedReader leBuffer = new BufferedReader(unFichier);
-        ) {
-            // Nous avons les fichiers partie1.txt,
-            // partie2.txt et partie3.txt.
-            System.out.println("ligne: "+ leBuffer.readLine());
-        } catch (FileNotFoundException exception) {
-            System.out.println(" Fichier introuvable!");
-        }
-        
-        
-        File fichier = new File ("sudoku.txt");
-		Scanner sc = new Scanner(fichier);
+        File fichierALire = new File("src/partie1.txt");
+        Scanner sc = new Scanner(fichierALire);
 		int [][] grille = new int [9][9];
-		
-		while (sc.hasNext())
-		{
-			//read sudoku from text file into 9x9 array
-			for (int i = 0; i < 9; i ++)
-			{
-				for (int j = 0; j < 9; j++)
-				{
-                    grille[i][j] = sc.nextInt();
-					//output the array
-					System.out.print (grille[i][j] + " ");
-				}
-				//add new line at the end of each row
-				System.out.println();
-			}
-			
-		}
+	
+        //faire un try catch pour ArrayIndexOutOfBoundsException --> retourne que la grille n'est pas un format valide 
+            //est-ce que les indexes sont bons (0-8)
+       while(sc.hasNext()){
+            String temp = sc.next();
+            int x = Character.getNumericValue(temp.charAt(0));
+            int y = Character.getNumericValue(temp.charAt(1));
+            int z = Character.getNumericValue(temp.charAt(2));
+            grille[x][y] =  z;
+        }
+        // valider si j'ai des 0 ou des null dans ma grille --> retourne non valide [et une image de la grille]
+        
+        System.out.println(Arrays.deepToString(grille));
+        sc.close();
+
+       
+
+
+	
 		//output whether it is valid or invalid
-		if (!isValid(grille))
+/*		if (!isValid(grille))
 		{
 			System.out.println ("\nNot valid Sudoku grid.");
 		}
@@ -127,7 +118,7 @@ public class App {
         //method to check whether a array list of 9 integers has numbers 1-9
         int[]temp = new int[checkArr.length];
         System.arraycopy(checkArr, 0, temp, 0, checkArr.length);
-        //sory the copied array
+        //sort the copied array
         java.util.Arrays.sort(temp);
         //check that the sorted numbers are in sequential order 1+ for each
         for (int i = 0; i < 9; i++)
@@ -138,5 +129,7 @@ public class App {
             }
         }
         return true;
+        */
     }
 }
+
